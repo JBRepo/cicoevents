@@ -43,18 +43,10 @@ export default class Event extends React.Component {
             });
     }
 
-    handleChange(e){
-        //this.state.event.dipendant = e.target.value
-        //this.setState({dipendant : e.target.value});
+    cancelAction (e){
+        this.props.cancel();
     }
 
-    componentWillMount(){
-        //var e = this.props.event;
-        //console.log('render in Event:',e);
-        //if (this.props.type == 'modify') {
-          //  this.setState({id:e.id,eventType:e.eventType, dipendant:e.dipendant, osservazione:e.osservazione, descrizioneEvento:e.descrizioneEvento, soln:e.soln});
-        //}
-    }
 
     render(){
         var e = {};
@@ -78,6 +70,7 @@ export default class Event extends React.Component {
         }
         console.log('solution-->',solution);
         return <div>
+       <h2 align="center" >Event</h2>     
       <table width="75%">
       <tbody>
       <tr>
@@ -92,7 +85,7 @@ export default class Event extends React.Component {
     </tr>
       <tr>
     <td> Dipendente Segnalante </td>
-    <td> <input  id="dipendant" name="dipendant" defaultValue={user} onChange={this.handleChange.bind(this)}/> </td>
+    <td> <input  id="dipendant" name="dipendant" defaultValue={user} /> </td>
     </tr>
     <tr><td> Under observation
      </td>
@@ -113,8 +106,10 @@ export default class Event extends React.Component {
      </tr>
      </tbody>
       </table>
-      <button value="Add" onClick={this.postEvent.bind(this)}>
-      Add Event</button>
+      <button align='left' value={this.props.type === 'modify' ? 'Modify' : 'Add '} onClick={this.postEvent.bind(this)}>
+      {this.props.type === 'modify' ? 'Modify' : 'Add'}</button>
+      <button value='Cancel' onClick={this.cancelAction.bind(this)}>
+      Cancel</button>
       </div>
     }
 }

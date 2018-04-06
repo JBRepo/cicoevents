@@ -3,6 +3,7 @@ import Event   from './EventForm';
 import {EventList  } from './EventList';
 import { Switch, Route } from 'react-router-dom';
 import { Link, Redirect } from 'react-router-dom';
+import './index.css';
 
 export const Header = ()=> { return (<div>
     <header>
@@ -11,7 +12,6 @@ export const Header = ()=> { return (<div>
       <ul>
         <li><Link to='/addEvent'>Event</Link></li>
         <li><Link to='/eventList'>EventList</Link></li>
-        <li><Link to='/event'>EventMain</Link></li>
       </ul>
     </nav>
     <Switch>
@@ -63,12 +63,17 @@ export class EventMain extends React.Component {
         
     }
 
+    cancelAction() {
+        console.log('inside cancel event-->'); 
+        this.setState({event:{}, eventType:''});
+    }
+
     render () {
         
         return <div>
             
             <Switch>
-            <Route path="/addEvent" component={()=><Event propagate={(ev)=>this.propagateEvent(ev)} event={this.state.event} type={this.state.eventType}/>}/>
+            <Route path="/addEvent" component={()=><Event propagate={(ev)=>this.propagateEvent(ev)} cancel={()=>this.cancelAction()} event={this.state.event} type={this.state.eventType}/>}/>
             <Route path="/eventList" render={()=>this.state.eventType === 'modify' ? <Redirect to="/addEvent"/>: <EventList list={this.state.events} event={this.state.event} type={this.state.eventType} modify={(ev)=>this.modifyEvent(ev)}/>}/>
             </Switch>
             </div>

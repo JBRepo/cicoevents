@@ -2,8 +2,6 @@ import React from 'react';
 
 export class EventList extends React.Component {
     modifyEvent () {
-        //console.log('elem from modifica-->',elem);
-        //console.log('this.props.type-->',this.props.type);
         var items = document.getElementsByName('rowSelector');
         var selectedRow = '';
         for (var i = 0; i < items.length; i++) {
@@ -12,9 +10,10 @@ export class EventList extends React.Component {
             }
         }
         console.log('selectedRow->',selectedRow);
-        //var elem={};
-        //elem = this.state.events.filter((e)=>e.id == selectedRow)
-        //console.log('selectedRow->',elem);
+        if (selectedRow === '') {
+            alert('Please select an event to modify');
+            return;
+        }
         this.props.modify(selectedRow);
     }
 
@@ -26,10 +25,8 @@ export class EventList extends React.Component {
     render () {
         console.log('props-add: ',this.props.event);
         console.log('# in events: ',this.props.list);
-        //if (this.props.type == 'add') {
-          //  this.state.events.push(this.props.event);
-        //}
         return <div>
+            <h2 align="center" >List of Events</h2>
             <table>
                 <thead>
                 <tr>
@@ -43,7 +40,7 @@ export class EventList extends React.Component {
                 </thead>
           <tbody>{this.renderEvents(this.props.list)}</tbody>
 
-            </table>
+            </table> <br></br>
             <button onClick={()=>this.modifyEvent()}>Modify</button>
             </div>
     }
