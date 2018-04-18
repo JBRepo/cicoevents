@@ -36,24 +36,6 @@ export class EventMain extends React.Component {
             this.setState({events:response.data, eventType:evState.eventType})}.bind(this))
     }
 
-    /*static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(getDerivedStateFromProps);
-        axios.get('http://10.21.137.94:8090/WebserviceRest/Rest/Event/List')
-        .then(function(response){console.log(response);
-            this.setState({events:response.data})}.bind(this))
-    }*/
-    /*getEventList () {
-        axios.get('http://10.21.137.94:8090/WebserviceRest/Rest/Event/List')
-        .then(function(response){console.log(response);
-            this.setState({events:response.data})}.bind(this))
-    }*/
-
-    /*componentWillUpdate () {
-        axios.get('http://10.21.137.94:8090/WebserviceRest/Rest/Event/List')
-        .then(function(response){console.log(response);
-            this.setState({events:response.data})}.bind(this))
-    }*/
-
     propagateEvent (ev) {
         var eventCount;
         if (this.state.eventType === 'modify') {
@@ -110,8 +92,8 @@ export class EventMain extends React.Component {
     render () {
         return <div>
             <Switch>
-            <Route path="/addEvent" component={()=><Event propagate={(ev)=>this.propagateEvent(ev)} cancel={()=>this.cancelAction()} event={this.state.event} type={this.state.eventType}/>}/>
-            <Route path="/eventList" render={()=>this.state.eventType === 'modify' ? <Redirect to="/addEvent"/>: <EventList list={this.state.events} event={this.state.event} type={this.state.eventType} modify={(ev)=>this.modifyEvent(ev)}/>}/>
+                <Route path="/addEvent" component={()=><Event propagate={(ev)=>this.propagateEvent(ev)} cancel={()=>this.cancelAction()} event={this.state.event} type={this.state.eventType}/>}/>
+                <Route path="/eventList" render={()=>this.state.eventType === 'modify' ? <Redirect to="/addEvent"/>: <EventList list={this.state.events} event={this.state.event} type={this.state.eventType} modify={(ev)=>this.modifyEvent(ev)}/>}/>
             </Switch>
             </div>
     }
