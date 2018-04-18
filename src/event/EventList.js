@@ -19,7 +19,7 @@ export class EventList extends React.Component {
 
     renderEvents(arr){
         console.log(arr.length);
-        return arr.map((elem)=><tr key={elem.id}><td>{elem.eventType}</td><td>{elem.descrizioneEvento}</td><td>{elem.dipendant}</td><td>{elem.osservazione}</td><td>{elem.soln}</td><td><input type='radio' name="rowSelector" value={elem.id} ></input></td></tr>);
+        return arr.map((elem)=><tr key={elem.eventId}><td>{elem.eventType}</td><td>{elem.descrizioneEvento}</td><td>{elem.dipendant}</td><td>{elem.osservazione}</td><td>{elem.soln}</td><td><input type='radio' name="rowSelector" value={elem.eventId} ></input></td></tr>);
     }
 
     render () {

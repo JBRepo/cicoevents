@@ -1,5 +1,16 @@
 import React from 'react';
 
+const OptionType = ()=>{ 
+    var options = [{id:1, event:'Anomalia'},{id:2, event:'Perdita Operativa'},{id:3, event:'Reclamo'},{id:4, event:'Segnalazione Compliance'}];
+    return options.map((elem)=><option key={elem.id} value={elem.id} >{elem.event}</option>);
+}
+
+const CheckBoxType = (props) => {
+    var checks = [{name:'soln', value:'workaround'},{name:'soln', value:'caution'},{name:'soln', value:'permanent'}];
+    return checks.map((elem)=> <div><input type="checkbox" name={elem.name} value={elem.value} defaultChecked={props.solution.indexOf(elem.value) >= 0 ? true : false}/>{elem.value}</div>);
+}
+
+
 export default class Event extends React.Component {
     constructor (props){
         super(props);
@@ -31,10 +42,10 @@ export default class Event extends React.Component {
         console.log('descrizioneEvento->',descrizioneEvento);
         console.log('selectedSoln->',soln);
         console.log('selectedSoln->',selectedSoln);
-        var propId = this.props.event.id;
+        var propId = this.props.event.eventId;
         console.log('id-->',propId);
         
-        this.props.propagate({id:propId,
+        this.props.propagate({eventId:String(propId),
             eventType:eventType,
             dipendant:dipendant,
             osservazione:chosenObservation,
@@ -76,11 +87,7 @@ export default class Event extends React.Component {
       <tr>
     <td> Type of Event </td>
     <td> <select id="eventType" defaultValue={tipoEvento}> 
-    <option value="-1" >----Seleziona----</option>
-    <option value="1"> Anomalia </option>
-    <option value="2" >Perdita Operativa </option>
-    <option value="3" >Reclamo </option>
-    <option value="21">Segnalazione Compliance </option>
+    <OptionType></OptionType>
     </select></td>
     </tr>
       <tr>
@@ -99,9 +106,7 @@ export default class Event extends React.Component {
      <tr>
          <td>Solution</td>
          <td>
-         <input type="checkbox" name="soln" value="workaround" defaultChecked={solution.indexOf('workaround') >= 0 ? true : false}/>Workaround<br></br>
-        <input type="checkbox" name="soln" value="caution" defaultChecked={solution.indexOf('caution') >= 0 ? true : false}/>Precaution <br></br>
-        <input type="checkbox" name="soln" value="permanent" defaultChecked={solution.indexOf('permanent') >= 0 ?true : false}/>Permanent Solution 
+         <CheckBoxType solution={solution}></CheckBoxType>
         </td>
      </tr>
      </tbody>
